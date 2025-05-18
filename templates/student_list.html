@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Approve Students</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+        /* Initial image size */
+        #resizableImage {
+            width: 200px;
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.3s ease; /* Smooth transition */
+        }
+
+        /* Full-size image */
+        #resizableImage.full-size {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(4); /* Center and enlarge */
+            z-index: 1000; /* Ensure it's on top */
+        }
+
+        /* Overlay to capture clicks outside the image */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            z-index: 999; /* Below the image */
+        }
+
+        /* Show overlay when image is enlarged */
+        #resizableImage.full-size + .overlay {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Image -->
+
+
+    <!-- Overlay to capture clicks outside the image -->
+
+
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Students List</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Mobile No</th>
+                    <th>Class</th>
+                    <th>Year</th>
+                    <th>Semester</th>
+                    <th>DoB</th>
+                    <th>Enrollment No</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if students %}
+                    {% for student in students %}
+                    <tr>
+                        <td>{{ student[1] }}</td>
+                        <td>{{ student[2] }}</td>
+                        <td>{{ student[3] }}</td>
+                        <td>{{ student[4] }}</td>
+                        <td>{{ student[5] }}</td>
+                        <td>{{ student[6] }}</td>
+                        <td>{{ student[7] }}</td>
+                        <td><img id="resizableImage" src="{{ student[8] }}" alt="Student Image" onclick="enlargeImage()"><div class="overlay" onclick="shrinkImage()"></div></td>
+<!--                        <td><img src="{{ student[8] }}" alt="student Image" width="80" height="80"></td>-->
+
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="3" class="text-center">No students in database.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+
+    </div>
+    <div class="text-center">
+            <a href="{{url_for ('admin_dashboard')}}" class="btn btn-success" style="background-color:#78866B;" >back</a>
+            <a href="{{url_for ('admin_logout')}}" class="btn btn-success" style="background-color:#78866B;" >logout</a>
+    </div>
+<script>
+        function enlargeImage() {
+            const image = document.getElementById('resizableImage');
+            image.classList.add('full-size'); // Enlarge the image
+        }
+
+        function shrinkImage() {
+            const image = document.getElementById('resizableImage');
+            image.classList.remove('full-size'); // Return to original size
+        }
+    </script>
+</body>
+</html>
