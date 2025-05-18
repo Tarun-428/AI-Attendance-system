@@ -8,4 +8,4 @@ scipy==1.10.1
 tensorflow==2.12.0
 Werkzeug==2.3.7
 insightface requires:
-pip install onnxruntime-gpu
+onnxruntime-gpu
