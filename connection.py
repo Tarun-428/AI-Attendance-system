@@ -1,14 +1,16 @@
 import mysql.connector
+import os
 
 class Database:
     def __init__(self):
         self.conn = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="tarun",
-            database="face_attendance"
+            host=os.environ.get("DB_HOST"),
+            port=int(os.environ.get("DB_PORT")),
+            user=os.environ.get("DB_USER"),
+            password=os.environ.get("DB_PASS"),
+            database=os.environ.get("DB_NAME")
         )
-        self.cursor = self.conn.cursor()
+        self.cursor = self.conn.cursor(dictionary=True)
 
     def create(self, query, params=None):
         self.cursor.execute(query, params or ())
