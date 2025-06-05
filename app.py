@@ -20,7 +20,7 @@ ADMIN_PASSWORD_HASH = generate_password_hash("admin123")
 # face recognition (w600k_r50.onnx), and optionally gender/age prediction.
 # These work together to detect, align, and recognize faces."
 # Load InsightFace face analysis model
-face_app = FaceAnalysis(name='buffalo_l', providers=['CPUExecutionProvider'])  # Change to 'cuda' if you have GPU
+face_app = FaceAnalysis(name='buffalo_s', providers=['CPUExecutionProvider'])  # Change to 'cuda' if you have GPU
 face_app.prepare(ctx_id=0)
 # Initialize the InsightFace app globally
 insightface_app = FaceAnalysis(name='buffalo_l')
